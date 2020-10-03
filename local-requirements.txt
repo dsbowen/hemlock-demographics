@@ -1,3 +1,4 @@
+country_list>=0.2.1
 hemlock-survey>=0.0.19
 ipykernel>=5.3.4
 pyyaml>=5.3.1
