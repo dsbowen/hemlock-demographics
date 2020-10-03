@@ -58,6 +58,8 @@ def comprehensive_demographics(**kwargs):
         'children',
         'live_with_parents',
         'marital_status',
+        'country', 
+        'language',
         'education',
         'employment',
         'occupation',
