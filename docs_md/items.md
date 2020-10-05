@@ -1,0 +1,20 @@
+# Items
+
+1. `gender`
+2. `age`
+3. `race`
+4. `religion`
+5. `household_residents`,
+6. `children`,
+7. `live_with_parents`,
+8. `marital_status`,
+9. `country`, 
+10. `language`,
+11. `education`,
+12. `employment`,
+13. `occupation`,
+14. `sector`,
+15. `primary_wage_earner`,
+16. `save_money`,
+17. `social_class`,
+18. `income_group`

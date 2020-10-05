@@ -1,3 +1,5 @@
+"""# Demographics"""
+
 # file:///C:/Users/DBSpe/Downloads/F00010738-WVS-7_Master_Questionnaire_2017-2020_English.pdf
 
 from .languages import languages
@@ -14,10 +16,43 @@ def demographics(
         *items, 
         page=False,
         require=False, 
-        record_order=False, 
         record_index=False, 
-        record_choice_index=False
     ):
+    """
+    Parameters
+    ----------
+    \*items : str
+        Names of demographic items to return. [See the full list of 
+        available items](items.md).
+
+    page : bool, default=False
+        Indicates that a page should be returned containing the demographics 
+        items. If `False`, a list of questions is returned.
+
+    require : bool, default=False
+        Indicates that participants are required to respond to the items.
+
+    record_index : bool, default=False
+        Indicates that the dataframe should record the order in which the
+        demographic items appear on the page.
+
+    Returns
+    -------
+    demographics : hemlock.Page or list of hemlock.Question
+        A page containing the requested demographics items if `page`,
+        otherwise a list of demographics questions.
+
+    Examples
+    --------
+    ```python
+    from hemlock import push_app_context
+    from hemlock_demographics import demographics
+
+    app = push_app_context()
+
+    demographics('age', 'gender', 'race', page=True).preview()
+    ```
+    """
     def add_question(item):
         q = demographics_items[item](require)
         (
@@ -27,9 +62,7 @@ def demographics(
 
     def set_question_attrs(question):
         question.data_rows = -1
-        question.record_order = record_order
         question.record_index = record_index
-        question.record_choice_index = record_choice_index
 
     questions = []
     [add_question(item) for item in items]
@@ -38,17 +71,25 @@ def demographics(
         return Page(
             *questions,
             name='Demographics',
-            timer=dict(
-                var='DemographicsTime',
-                data_rows=-1,
-                record_order=False,
-                record_index=False
-            ),
+            timer=('DemographicsTime', -1),
             debug=[D.debug_questions(), D.forward()]
         )
     return questions
 
 def comprehensive_demographics(**kwargs):
+    """
+    Parameters
+    ----------
+    \*\*kwargs :
+        Keyword arguments are passed to `demographics`.
+
+    Returns
+    -------
+    demographics :
+        A comprehensive demographics questionnaire including basic
+        demographics, family demographics, country demographics, and SES
+        demographics.
+    """
     return demographics(
         'gender',
         'age',
@@ -72,9 +113,32 @@ def comprehensive_demographics(**kwargs):
     )
 
 def basic_demographics(**kwargs):
+    """
+    Parameters
+    ----------
+    \*\*kwargs :
+        Keyword arguments are passed to `demographics`.
+
+    Returns
+    -------
+    basic demographics : 
+        Gender, age, race, and religion.
+    """
     return demographics('gender', 'age', 'race', 'religion', **kwargs)
 
 def family_demographics(**kwargs):
+    """
+    Parameters
+    ----------
+    \*\*kwargs :
+        Keyword arguments are passed to `demographics`.
+
+    Returns
+    -------
+    family demographics :
+        Number of household residents, number of children, living with parents
+        or in-laws, marital status.
+    """
     return demographics(
         'household_residents', 
         'children', 
@@ -84,9 +148,32 @@ def family_demographics(**kwargs):
     )
 
 def country_demographics(**kwargs):
+    """
+    Parameters
+    ----------
+    \*\*kwargs :
+        Keyword arguments are passed to `demographics`.
+
+    Returns
+    -------
+    country demographics :
+        Country of residence, origin, citizenship, and household language.
+    """
     return demographics('country', 'language', **kwargs)
 
 def status_demographics(**kwargs):
+    """
+    Parameters
+    ----------
+    \*\*kwargs :
+        Keyword arguments are passed to `demographics`.
+
+    Returns
+    -------
+    SES demographics :
+        Education, employment, occupation, work sector, savings, subjective
+        social class and income group.
+    """
     return demographics(
         'education', 
         'employment', 
@@ -102,6 +189,26 @@ def status_demographics(**kwargs):
 demographics_items = {}
 
 def register(key=None):
+    """
+    Register a demographics item.
+
+    Parameters
+    ----------
+    key : str or None, default=None
+        String key for the item. If `None`, the name of the function is used.
+
+    Examples
+    --------
+    ```python
+    @register()
+    def gender(require=False):
+    \    gender = Check(
+    \        '<p>What is your gender?</p>',
+    \        ['Male', 'Female', 'Other'],
+    \        var='Gender'
+    \    )
+    ```
+    """
     def inner(func):
         demographics_items[key or func.__name__] = func
         return func
@@ -126,7 +233,7 @@ def gender(require=False):
     )
     _debug_choices(gender, require)
     specify = Input(
-        '<p>If other, please specify.</p>',
+        '<p>Please specify your gender.</p>',
         var='GenderSpecify', data_rows=-1
     )
     show_on_event(specify, gender, 'Other')
@@ -134,13 +241,7 @@ def gender(require=False):
 
 def _record_male(gender_q):
     current_user.embedded.append(
-        Embedded(
-            'Male', 
-            int(gender_q.data=='Male'), 
-            data_rows=-1,
-            record_order=False,
-            record_index=False
-        )
+        Embedded('Male', int(gender_q.data=='Male'), data_rows=-1)
     )
 
 @register()
@@ -150,11 +251,7 @@ def age(require=False):
     return Input(
         '<p>Enter your month and year of birth.</p>',
         var='BirthMonth',
-        extra_attrs={
-            'type': 'month', 
-            'min': start.strftime('%Y-%m'), 
-            'max': end.strftime('%Y-%m')
-        },
+        type='month', min=start.strftime('%Y-%m'), max=end.strftime('%Y-%m'),
         validate=V.require() if require else None,
         submit=_record_age,
         debug=[D.send_datetime(rand_date, p_exec=1 if require else .8)]
@@ -167,15 +264,7 @@ def _record_age(age_q):
     else:
         age = None
     # record age as embedded data
-    current_user.embedded.append(
-        Embedded(
-            'Age', 
-            age, 
-            data_rows=-1,
-            record_order=False,
-            record_index=False
-        )
-    )
+    current_user.embedded.append(Embedded('Age', age, data_rows=-1))
 
 @register()
 def race(require=False):
@@ -271,13 +360,7 @@ def _check_for_same_country(country_q, residence_q):
 def _immigration_status(citizen_q, residence_q):
     immigrant = int(citizen_q.data != residence_q.data)
     current_user.embedded.append(
-        Embedded(
-            'Immigrant', 
-            immigrant, 
-            data_rows=-1,
-            record_order=False,
-            record_index=False
-        )
+        Embedded('Immigrant', immigrant, data_rows=-1)
     )
 
 languages = [(l[1], l[0]) for l in languages]
@@ -298,8 +381,7 @@ def household_residents(require=False):
         <p>How many people regularly live in your household, including 
         yourself and children?</p>
         ''',
-        var='NHouseholdResidents', extra_attrs={'type': 'number', 'min': 1},
-        validate=V.require() if require else None,
+        var='NHouseholdResidents', type='number', min=1, required=require,
         debug=D.send_keys(str(randint(1, 10)), p_exec=1 if require else .8)
     )
 
@@ -512,7 +594,7 @@ def save_money(require=False):
             ('Spent savings and borrowed money', 'borrowed')
         ],
         var='Savings',
-        valdate=V.require() if require else None
+        validate=V.require() if require else None
     )
     return _debug_choices(save_q, require)
 

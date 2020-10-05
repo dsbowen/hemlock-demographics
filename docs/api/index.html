@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>API - Hemlock-Demographics</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../css/extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "API";
+    var mkdocs_page_input_path = "api.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Hemlock-Demographics</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">API</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#hemlock_demographicsdemographics">hemlock_demographics.demographics</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hemlock_demographicscomprehensive_demographics">hemlock_demographics.comprehensive_demographics</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hemlock_demographicsbasic_demographics">hemlock_demographics.basic_demographics</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hemlock_demographicsfamily_demographics">hemlock_demographics.family_demographics</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hemlock_demographicscountry_demographics">hemlock_demographics.country_demographics</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hemlock_demographicsstatus_demographics">hemlock_demographics.status_demographics</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hemlock_demographicsregister">hemlock_demographics.register</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#examples_1">Examples</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../items/">Items</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Hemlock-Demographics</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>API</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/dsbowen/hemlock-demographics/edit/master/docs_md/api.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+<p><link rel="stylesheet" href="https://assets.readthedocs.org/static/css/readthedocs-doc-embed.css" type="text/css" /></p>
+<style>
+    a.src-href {
+        float: right;
+    }
+    p.attr {
+        margin-top: 0.5em;
+        margin-left: 1em;
+    }
+    p.func-header {
+        background-color: gainsboro;
+        border-radius: 0.1em;
+        padding: 0.5em;
+        padding-left: 1em;
+    }
+    table.field-table {
+        border-radius: 0.1em
+    }
+</style>
+
+<h1 id="demographics">Demographics</h1>
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+
+    </tbody>
+</table>
+
+<h2 id="hemlock_demographicsdemographics">hemlock_demographics.<strong>demographics</strong></h2>
+<p class="func-header">
+    <i>def</i> hemlock_demographics.<b>demographics</b>(<i>*items, page=False, require=False, record_index=False</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L15">[source]</a>
+</p>
+
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>*items : <i>str</i></b>
+<p class="attr">
+    Names of demographic items to return. <a href="items.md">See the full list of available items</a>.
+</p>
+<b>page : <i>bool, default=False</i></b>
+<p class="attr">
+    Indicates that a page should be returned containing the demographics items. If <code>False</code>, a list of questions is returned.
+</p>
+<b>require : <i>bool, default=False</i></b>
+<p class="attr">
+    Indicates that participants are required to respond to the items.
+</p>
+<b>record_index : <i>bool, default=False</i></b>
+<p class="attr">
+    Indicates that the dataframe should record the order in which the demographic items appear on the page.
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Returns:</b></td>
+    <td class="field-body" width="100%"><b>demographics : <i>hemlock.Page or list of hemlock.Question</i></b>
+<p class="attr">
+    A page containing the requested demographics items if <code>page</code>, otherwise a list of demographics questions.
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h4 id="examples">Examples</h4>
+<pre><code class="python">from hemlock import push_app_context
+from hemlock_demographics import demographics
+
+app = push_app_context()
+
+demographics('age', 'gender', 'race', page=True).preview()
+</code></pre>
+
+<h2 id="hemlock_demographicscomprehensive_demographics">hemlock_demographics.<strong>comprehensive_demographics</strong></h2>
+<p class="func-header">
+    <i>def</i> hemlock_demographics.<b>comprehensive_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L79">[source]</a>
+</p>
+
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>**kwargs : <i></i></b>
+<p class="attr">
+    Keyword arguments are passed to <code>demographics</code>.
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Returns:</b></td>
+    <td class="field-body" width="100%"><b>demographics : <i></i></b>
+<p class="attr">
+    A comprehensive demographics questionnaire including basic demographics, family demographics, country demographics, and SES demographics.
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h2 id="hemlock_demographicsbasic_demographics">hemlock_demographics.<strong>basic_demographics</strong></h2>
+<p class="func-header">
+    <i>def</i> hemlock_demographics.<b>basic_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L115">[source]</a>
+</p>
+
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>**kwargs : <i></i></b>
+<p class="attr">
+    Keyword arguments are passed to <code>demographics</code>.
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Returns:</b></td>
+    <td class="field-body" width="100%"><b>basic demographics : <i></i></b>
+<p class="attr">
+    Gender, age, race, and religion.
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h2 id="hemlock_demographicsfamily_demographics">hemlock_demographics.<strong>family_demographics</strong></h2>
+<p class="func-header">
+    <i>def</i> hemlock_demographics.<b>family_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L129">[source]</a>
+</p>
+
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>**kwargs : <i></i></b>
+<p class="attr">
+    Keyword arguments are passed to <code>demographics</code>.
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Returns:</b></td>
+    <td class="field-body" width="100%"><b>family demographics : <i></i></b>
+<p class="attr">
+    Number of household residents, number of children, living with parents or in-laws, marital status.
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h2 id="hemlock_demographicscountry_demographics">hemlock_demographics.<strong>country_demographics</strong></h2>
+<p class="func-header">
+    <i>def</i> hemlock_demographics.<b>country_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L150">[source]</a>
+</p>
+
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>**kwargs : <i></i></b>
+<p class="attr">
+    Keyword arguments are passed to <code>demographics</code>.
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Returns:</b></td>
+    <td class="field-body" width="100%"><b>country demographics : <i></i></b>
+<p class="attr">
+    Country of residence, origin, citizenship, and household language.
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h2 id="hemlock_demographicsstatus_demographics">hemlock_demographics.<strong>status_demographics</strong></h2>
+<p class="func-header">
+    <i>def</i> hemlock_demographics.<b>status_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L164">[source]</a>
+</p>
+
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>**kwargs : <i></i></b>
+<p class="attr">
+    Keyword arguments are passed to <code>demographics</code>.
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Returns:</b></td>
+    <td class="field-body" width="100%"><b>SES demographics : <i></i></b>
+<p class="attr">
+    Education, employment, occupation, work sector, savings, subjective social class and income group.
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h2 id="hemlock_demographicsregister">hemlock_demographics.<strong>register</strong></h2>
+<p class="func-header">
+    <i>def</i> hemlock_demographics.<b>register</b>(<i>key=None</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L191">[source]</a>
+</p>
+
+<p>Register a demographics item.</p>
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>key : <i>str or None, default=None</i></b>
+<p class="attr">
+    String key for the item. If <code>None</code>, the name of the function is used.
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h4 id="examples_1">Examples</h4>
+<pre><code class="python">@register()
+def gender(require=False):
+    gender = Check(
+        '&lt;p&gt;What is your gender?&lt;/p&gt;',
+        ['Male', 'Female', 'Other'],
+        var='Gender'
+    )
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../items/" class="btn btn-neutral float-right" title="Items">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/dsbowen/hemlock-demographics/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../items/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

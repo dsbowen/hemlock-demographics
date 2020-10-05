@@ -1,3 +1,5 @@
+# Hemlock-Demographics
+
 Hemlock-Demographics is a <a href="https://dsbowen.github.io/hemlock/" target="_blank">hemlock</a> extension which allows you to add demographics items to a hemlock project.
 
 ## Installation

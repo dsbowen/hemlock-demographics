@@ -4,7 +4,7 @@ from hemlock_demographics import comprehensive_demographics
 @route('/survey')
 def start():
     return Branch(
-        comprehensive_demographics(page=True, require=True),
+        comprehensive_demographics(page=True),
         Page(
             Label('<p>Hello World</p>'), 
             terminal=True
