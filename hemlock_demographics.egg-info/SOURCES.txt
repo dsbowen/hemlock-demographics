@@ -1,4 +1,5 @@
 README.md
+setup.py
 hemlock_demographics/__init__.py
 hemlock_demographics/languages.py
 hemlock_demographics.egg-info/PKG-INFO

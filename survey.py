@@ -1,10 +1,10 @@
 from hemlock import Branch, Page, Label, route
-from hemlock_demographics import comprehensive_demographics
+from hemlock_demographics import demographics
 
 @route('/survey')
 def start():
     return Branch(
-        comprehensive_demographics(page=True),
+        demographics('age_bins', 'race', 'gender', require=True, page=True),
         Page(
             Label('<p>Hello World</p>'), 
             terminal=True

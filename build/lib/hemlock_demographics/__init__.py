@@ -122,9 +122,9 @@ def basic_demographics(**kwargs):
     Returns
     -------
     basic demographics : 
-        Gender, age, and race.
+        Gender, age, race, and religion.
     """
-    return demographics('gender', 'age', 'race',  **kwargs)
+    return demographics('gender', 'age', 'race', 'religion', **kwargs)
 
 def family_demographics(**kwargs):
     """
@@ -265,25 +265,6 @@ def _record_age(age_q):
         age = None
     # record age as embedded data
     current_user.embedded.append(Embedded('Age', age, data_rows=-1))
-
-@register()
-def age_bins(require=False):
-    return Select(
-        '<p>How old are you?</p>',
-        [
-            '',
-            'Younger than 18',
-            '18-24',
-            '25-34',
-            '35-44',
-            '45-54',
-            '55-59',
-            '60-64',
-            '65 or older'
-        ],
-        var='AgeBins',
-        validate=V.require() if require else None
-    )
 
 @register()
 def race(require=False):
