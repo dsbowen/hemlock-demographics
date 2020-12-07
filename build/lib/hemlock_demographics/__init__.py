@@ -6,7 +6,10 @@ from .languages import languages
 
 from country_list import countries_for_language
 from flask_login import current_user
-from hemlock import Binary, Check, Debug as D, Embedded, Input, Page, Range, Select, Submit as S, Validate as V
+from hemlock import (
+    Binary, Check, Debug as D, Embedded, Input, Page, Range, Select, 
+    Submit as S, Validate as V
+)
 from hemlock.tools import show_on_event
 
 from datetime import datetime, timedelta
@@ -246,15 +249,12 @@ def _record_male(gender_q):
 
 @register()
 def age(require=False):
-    start, end = datetime.strptime('1900-01', '%Y-%m'), datetime.utcnow()
-    rand_date = start + timedelta(days=randint(0, (end-start).days))
     return Input(
         '<p>Enter your month and year of birth.</p>',
         var='BirthMonth',
         type='month', min=start.strftime('%Y-%m'), max=end.strftime('%Y-%m'),
         validate=V.require() if require else None,
-        submit=_record_age,
-        debug=[D.send_datetime(rand_date, p_exec=1 if require else .8)]
+        submit=_record_age
     )
 
 def _record_age(age_q):
@@ -274,9 +274,12 @@ def age_bins(require=False):
             '',
             'Younger than 18',
             '18-24',
-            '25-34',
-            '35-44',
-            '45-54',
+            '25-29',
+            '30-34',
+            '35-39',
+            '40-44',
+            '45-49',
+            '50-54',
             '55-59',
             '60-64',
             '65 or older'
@@ -400,7 +403,8 @@ def household_residents(require=False):
         <p>How many people regularly live in your household, including 
         yourself and children?</p>
         ''',
-        var='NHouseholdResidents', type='number', min=1, required=require,
+        var='NHouseholdResidents', type='number', min=1, 
+        validate=V.require() if require else None,
         debug=D.send_keys(str(randint(1, 10)), p_exec=1 if require else .8)
     )
 
@@ -408,9 +412,9 @@ def household_residents(require=False):
 def children(require=False):
     return Input(
         '<p>How many children do you have?</p>',
-        var='NChildren', extra_attrs={'type': 'number', 'min': 0},
+        var='NChildren', type='number', min=0,
         validate=V.require() if require else None,
-        debug=D.send_keys(str(randint(1, 10)), p_exec=1 if require else .8)
+        debug=D.send_keys(str(randint(0, 10)), p_exec=1 if require else .8)
     )
 
 @register()
@@ -645,5 +649,5 @@ def income_group(require=False):
         <p>Please consider all wages, salaries, pensions, investments, and 
         other income.</p>
         ''',
-        min=0, max=10, var='IncomeGroup'
+        min=0, max=10, var='IncomeGroup', prepend='Income group: '
     )

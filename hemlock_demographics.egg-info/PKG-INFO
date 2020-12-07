@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: hemlock-demographics
-Version: 0.0.3
+Version: 0.0.4
 Summary: Hemlock extension for adding demographics to a hemlock project.
 Home-page: https://dsbowen.github.io/hemlock-demographics
 Author: Dillon Bowen

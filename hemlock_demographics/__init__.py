@@ -7,7 +7,7 @@ from .languages import languages
 from country_list import countries_for_language
 from flask_login import current_user
 from hemlock import (
-    Binary, Check, Debug as D, Embedded, Input, Page, Range, Select, 
+    Binary, Check, Debug as D, Embedded, Input, Page, RangeInput, Select, 
     Submit as S, Validate as V
 )
 from hemlock.tools import show_on_event
@@ -249,6 +249,7 @@ def _record_male(gender_q):
 
 @register()
 def age(require=False):
+    start, end = datetime(1900, 1, 1), datetime.utcnow()
     return Input(
         '<p>Enter your month and year of birth.</p>',
         var='BirthMonth',
@@ -304,7 +305,7 @@ def race(require=False):
             'Other'
         ],
         var='Race', multiple=True,
-        validate=V.require() if require else None
+        validate=V.min_len(1) if require else None
     )
     _debug_choices(race_q, require)
     specify = Input(
@@ -642,12 +643,13 @@ def social_class(require=False):
 
 @register()
 def income_group(require=False):
-    return Range(
+    return RangeInput(
         '''
         <p>On a scale from 0 (lowest) to 10 (highest), which income group does 
         your household belong to?</p>
         <p>Please consider all wages, salaries, pensions, investments, and 
         other income.</p>
         ''',
-        min=0, max=10, var='IncomeGroup', prepend='Income group: '
+        var='IncomeGroup', min=0, max=10,
+        validate=V.require() if require else None
     )
