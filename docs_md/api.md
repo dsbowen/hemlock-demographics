@@ -34,7 +34,7 @@
 ##hemlock_demographics.**demographics**
 
 <p class="func-header">
-    <i>def</i> hemlock_demographics.<b>demographics</b>(<i>*items, page=False, require=False, record_index=False</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L15">[source]</a>
+    <i>def</i> hemlock_demographics.<b>demographics</b>(<i>*items, page=False, require=False, record_index=False</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L18">[source]</a>
 </p>
 
 
@@ -86,7 +86,7 @@ demographics('age', 'gender', 'race', page=True).preview()
 ##hemlock_demographics.**comprehensive_demographics**
 
 <p class="func-header">
-    <i>def</i> hemlock_demographics.<b>comprehensive_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L79">[source]</a>
+    <i>def</i> hemlock_demographics.<b>comprehensive_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L82">[source]</a>
 </p>
 
 
@@ -117,7 +117,7 @@ demographics('age', 'gender', 'race', page=True).preview()
 ##hemlock_demographics.**basic_demographics**
 
 <p class="func-header">
-    <i>def</i> hemlock_demographics.<b>basic_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L115">[source]</a>
+    <i>def</i> hemlock_demographics.<b>basic_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L118">[source]</a>
 </p>
 
 
@@ -137,7 +137,7 @@ demographics('age', 'gender', 'race', page=True).preview()
     <th class="field-name"><b>Returns:</b></td>
     <td class="field-body" width="100%"><b>basic demographics : <i></i></b>
 <p class="attr">
-    Gender, age, race, and religion.
+    Gender, age, and race.
 </p></td>
 </tr>
     </tbody>
@@ -148,7 +148,7 @@ demographics('age', 'gender', 'race', page=True).preview()
 ##hemlock_demographics.**family_demographics**
 
 <p class="func-header">
-    <i>def</i> hemlock_demographics.<b>family_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L129">[source]</a>
+    <i>def</i> hemlock_demographics.<b>family_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L132">[source]</a>
 </p>
 
 
@@ -179,7 +179,7 @@ demographics('age', 'gender', 'race', page=True).preview()
 ##hemlock_demographics.**country_demographics**
 
 <p class="func-header">
-    <i>def</i> hemlock_demographics.<b>country_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L150">[source]</a>
+    <i>def</i> hemlock_demographics.<b>country_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L153">[source]</a>
 </p>
 
 
@@ -210,7 +210,7 @@ demographics('age', 'gender', 'race', page=True).preview()
 ##hemlock_demographics.**status_demographics**
 
 <p class="func-header">
-    <i>def</i> hemlock_demographics.<b>status_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L164">[source]</a>
+    <i>def</i> hemlock_demographics.<b>status_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L167">[source]</a>
 </p>
 
 
@@ -241,7 +241,7 @@ demographics('age', 'gender', 'race', page=True).preview()
 ##hemlock_demographics.**register**
 
 <p class="func-header">
-    <i>def</i> hemlock_demographics.<b>register</b>(<i>key=None</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L191">[source]</a>
+    <i>def</i> hemlock_demographics.<b>register</b>(<i>key=None</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L194">[source]</a>
 </p>
 
 Register a demographics item.

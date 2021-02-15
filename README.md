@@ -1,4 +1,6 @@
-Hemlock-Demographics is a <a href="https://dsbowen.github.io/hemlock/" target="_blank">hemlock</a> extension which allows you to add demographics items to a hemlock project.
+# Hemlock demographics
+
+Hemlock-demographics is a <a href="https://dsbowen.github.io/hemlock/" target="_blank">hemlock</a> extension for collecting demographic information.
 
 ## Installation
 
@@ -33,7 +35,7 @@ def start():
 
 ## Citation
 
-Hemlock-Demographics is based largely on the demographics section of the [World Values Survey](http://www.worldvaluessurvey.org/).
+Hemlock-demographics is based largely on the demographics section of the [World Values Survey](http://www.worldvaluessurvey.org/).
 
 ```
 @software{bowen2020hemlock-demographics,

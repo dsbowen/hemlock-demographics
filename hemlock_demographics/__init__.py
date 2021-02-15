@@ -249,23 +249,21 @@ def _record_male(gender_q):
 
 @register()
 def age(require=False):
-    start, end = datetime(1900, 1, 1), datetime.utcnow()
     return Input(
-        '<p>Enter your month and year of birth.</p>',
-        var='BirthMonth',
-        type='month', min=start.strftime('%Y-%m'), max=end.strftime('%Y-%m'),
+        '<p>How old are you?</p>',
+        var='Age', type='number', min=0, max=100,
         validate=V.require() if require else None,
-        submit=_record_age
     )
 
-def _record_age(age_q):
-    # calculate age in years
-    if age_q.data:
-        age = (datetime.utcnow() - age_q.data).days / 365.25
-    else:
-        age = None
-    # record age as embedded data
-    current_user.embedded.append(Embedded('Age', age, data_rows=-1))
+@register()
+def birth_year(require=False):
+    years = list(range(1900, datetime.now().year))
+    years.sort(reverse=True)
+    return Select(
+        '<p>What year were you born in?</p>',
+        [''] + years,
+        validate=V.require() if require else None
+    )
 
 @register()
 def age_bins(require=False):
