@@ -105,19 +105,17 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="hemlock-demographics">Hemlock-Demographics</h1>
-<p>Hemlock-Demographics is a <a href="https://dsbowen.github.io/hemlock/" target="_blank">hemlock</a> extension which allows you to add demographics items to a hemlock project.</p>
+                <h1 id="hemlock-demographics">Hemlock demographics</h1>
+<p>Hemlock-demographics is a <a href="https://dsbowen.github.io/hemlock/" target="_blank">hemlock</a> extension for collecting demographic information.</p>
 <h2 id="installation">Installation</h2>
 <p>With hemlock-CLI (recommended):</p>
 <pre><code>$ hlk install hemlock-demographics
 </code></pre>
-
 <p>With pip:</p>
 <pre><code>$ pip install hemlock-demographics
 </code></pre>
-
 <h2 id="quickstart">Quickstart</h2>
-<pre><code class="python">from hemlock import Branch, Page, Label, route
+<pre><code class="language-python">from hemlock import Branch, Page, Label, route
 from hemlock_demographics import comprehensive_demographics
 
 @route('/survey')
@@ -130,9 +128,8 @@ def start():
         )
     )
 </code></pre>
-
 <h2 id="citation">Citation</h2>
-<p>Hemlock-Demographics is based largely on the demographics section of the <a href="http://www.worldvaluessurvey.org/">World Values Survey</a>.</p>
+<p>Hemlock-demographics is based largely on the demographics section of the <a href="http://www.worldvaluessurvey.org/">World Values Survey</a>.</p>
 <pre><code>@software{bowen2020hemlock-demographics,
   author = {Dillon Bowen},
   title = {Hemlock-Demographics},
@@ -147,7 +144,6 @@ def start():
     date = {2014.}
 }
 </code></pre>
-
 <h2 id="license">License</h2>
 <p>Users must cite this package in any publications which use it.</p>
 <p>It is licensed with the MIT <a href="https://github.com/dsbowen/docstr-md/blob/master/LICENSE">License</a>.</p>
@@ -205,6 +201,6 @@ def start():
 </html>
 
 <!--
-MkDocs version : 1.1.1
-Build Date UTC : 2020-10-08 22:24:30.394452+00:00
+MkDocs version : 1.1.2
+Build Date UTC : 2021-02-15 20:46:57.197220+00:00
 -->
