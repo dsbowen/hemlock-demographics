@@ -7,8 +7,8 @@ from .languages import languages
 from country_list import countries_for_language
 from flask_login import current_user
 from hemlock import (
-    Binary, Check, Debug as D, Embedded, Input, Page, Range, Select, 
-    Submit as S, Validate as V
+    Check, Debug as D, Embedded, Input, Page, RangeInput, Select, 
+    Submit as S, Validate as V, binary
 )
 from hemlock.tools import show_on_event
 
@@ -228,7 +228,7 @@ def _debug_choices(question, require):
 @register()
 def gender(require=False):
     gender = Check(
-        '<p>What is your gender?</p>',
+        'What is your gender?',
         ['Male', 'Female', 'Other'],
         var='Gender',
         validate=V.require() if require else None,
@@ -236,13 +236,16 @@ def gender(require=False):
     )
     _debug_choices(gender, require)
     specify = Input(
-        '<p>Please specify your gender.</p>',
+        'Please specify your gender.',
         var='GenderSpecify', data_rows=-1
     )
     show_on_event(specify, gender, 'Other')
     return gender, specify
 
 def _record_male(gender_q):
+    current_user.embedded = [
+        e for e in current_user.embedded if e.var != 'Male'
+    ]
     current_user.embedded.append(
         Embedded('Male', int(gender_q.data=='Male'), data_rows=-1)
     )
@@ -250,26 +253,25 @@ def _record_male(gender_q):
 @register()
 def age(require=False):
     return Input(
-        '<p>Enter your month and year of birth.</p>',
-        var='BirthMonth',
-        type='month', min=start.strftime('%Y-%m'), max=end.strftime('%Y-%m'),
+        'How old are you?',
+        var='Age', type='number', min=0, max=100,
         validate=V.require() if require else None,
-        submit=_record_age
     )
 
-def _record_age(age_q):
-    # calculate age in years
-    if age_q.data:
-        age = (datetime.utcnow() - age_q.data).days / 365.25
-    else:
-        age = None
-    # record age as embedded data
-    current_user.embedded.append(Embedded('Age', age, data_rows=-1))
+@register()
+def birth_year(require=False):
+    years = list(range(1900, datetime.now().year))
+    years.sort(reverse=True)
+    return Select(
+        'What year were you born in?',
+        [''] + years,
+        validate=V.require() if require else None
+    )
 
 @register()
 def age_bins(require=False):
     return Select(
-        '<p>How old are you?</p>',
+        'How old are you?',
         [
             '',
             'Younger than 18',
@@ -292,8 +294,9 @@ def age_bins(require=False):
 def race(require=False):
     race_q = Check(
         '''
-        <p>Which race or ethnicity do you belong to?</p>
-        <p>Check as many as apply.</p>
+        Which race or ethnicity do you belong to?
+
+        Check as many as apply.
         ''',
         [
             'White',
@@ -304,11 +307,11 @@ def race(require=False):
             'Other'
         ],
         var='Race', multiple=True,
-        validate=V.require() if require else None
+        validate=V.min_len(1) if require else None
     )
     _debug_choices(race_q, require)
     specify = Input(
-        '<p>Please specify your race or ethnicity.</p>',
+        'Please specify your race or ethnicity.',
         var='RaceSpecify', data_rows=-1
     )
     show_on_event(specify, race_q, 'Other')
@@ -317,10 +320,7 @@ def race(require=False):
 @register()
 def religion(require=False):
     religion_q = Select(
-        '''
-        <p>Which religion or religious denomination do you belong to, if any?
-        </p>
-        ''',
+        'Which religion or religious denomination do you belong to, if any?',
         [
             '',
             'None',
@@ -338,7 +338,7 @@ def religion(require=False):
     )
     _debug_choices(religion_q, require)
     specify = Input(
-        '<p>Please specify your religion or religious denomination.</p>',
+        'Please specify your religion or religious denomination.',
         var='RelgionSpecify',
     )
     show_on_event(specify, religion_q, 'Other')
@@ -351,18 +351,18 @@ countries = [(c[1], c[0]) for c in countries]
 @register()
 def country(require=False):
     residence = Select(
-        '<p>What country are you currently living in?</p>',
+        'What country are you currently living in?',
         countries.copy() + [('Other', 'other')],
         default='US', var='CountryOfResidence'
     )
     birth = Select(
-        '<p>What country were you born in?</p>',
+        'What country were you born in?',
         [('I live in the country I was born in', 'same')] + countries.copy(),
         default='same', var='CountryOfBirth',
         submit=S(_check_for_same_country, residence)
     )
     citizen = Select(
-        '<p>What is your country of primary citizenship?</p>',
+        'What is your country of primary citizenship?',
         (
             [('I live in my country of primary citizenship', 'same')] 
             + countries.copy()
@@ -390,7 +390,7 @@ languages = [(l[1], l[0]) for l in languages]
 @register()
 def language(require=False):
     language_q = Select(
-        '<p>What language do you normally speak at home?</p>',
+        'What language do you normally speak at home?',
         languages.copy() + [('Other', 'other')],
         default='en', var='Language'
     )
@@ -399,10 +399,7 @@ def language(require=False):
 @register()
 def household_residents(require=False):
     return Input(
-        '''
-        <p>How many people regularly live in your household, including 
-        yourself and children?</p>
-        ''',
+        'How many people regularly live in your household, including yourself and children?',
         var='NHouseholdResidents', type='number', min=1, 
         validate=V.require() if require else None,
         debug=D.send_keys(str(randint(1, 10)), p_exec=1 if require else .8)
@@ -411,7 +408,7 @@ def household_residents(require=False):
 @register()
 def children(require=False):
     return Input(
-        '<p>How many children do you have?</p>',
+        'How many children do you have?',
         var='NChildren', type='number', min=0,
         validate=V.require() if require else None,
         debug=D.send_keys(str(randint(0, 10)), p_exec=1 if require else .8)
@@ -419,13 +416,13 @@ def children(require=False):
 
 @register()
 def live_with_parents(require=False):
-    live_with_parents = Binary(
-        '<p>Do you live with one or both of your parents?</p>',
+    live_with_parents = binary(
+        'Do you live with one or both of your parents?',
         var='LiveWithParents', 
         validate=V.require() if require else None
     )
-    live_with_inlaws = Binary(
-        '<p>Do you live with one or both your parents in law?</p>',
+    live_with_inlaws = binary(
+        'Do you live with one or both your parents in law?',
         ['Yes', 'No (or, I do not have parents in law)'],
         var='LiveWithInlaws', 
         validate=V.require() if require else None
@@ -438,7 +435,7 @@ def live_with_parents(require=False):
 @register()
 def marital_status(require=False):
     status_q = Select(
-        '<p>What is your marital status?</p>',
+        'What is your marital status?',
         [
             '',
             'Married',
@@ -456,10 +453,7 @@ def marital_status(require=False):
 @register()
 def education(require=False):
     educ_q = Select(
-        '''
-        <p>What is the highest educational level you have completed? (Values in
-        parentheses are for the U.S. school system.)</p>
-        ''',
+        'What is the highest educational level you have completed? (Values in parentheses are for the U.S. school system.)',
         [
             '',
             ('Early childhood education or no education', 0),
@@ -481,8 +475,9 @@ def education(require=False):
 def employment(require=False):
     employment_q = Select(
         '''
-        <p>What is your employment status?</p>
-        <p>If you have multiple jobs, select the option for your main job.</p>
+        What is your employment status?
+        
+        If you have multiple jobs, select the option for your main job.
         ''',
         [
             '',
@@ -503,31 +498,22 @@ def employment(require=False):
 def occupation(require=False):
     occupation_q = Select(
         '''
-        <p>To which occupational group do you belong?</p>
-        <p>If you have multiple jobs, select the option for your main job. If 
-        you are not employed, select the option for your most recent job.</p>
+        To which occupational group do you belong?
+        
+        If you have multiple jobs, select the option for your main job. If you are not employed, select the option for your most recent job.
         ''',
         [
             '',
             (
-                '''
-                Professional and technical (for example: doctor, teacher, 
-                engineer, artist, accountant, nurse)
-                ''', 
+                'Professional and technical (for example: doctor, teacher, engineer, artist, accountant, nurse)', 
                 'professional'
             ),
             (
-                '''
-                Higher administrative (for example: banker, executive in big 
-                business, high government official, union official)
-                ''', 
+                'Higher administrative (for example: banker, executive in big business, high government official, union official)', 
                 'admin'
             ),
             (
-                '''
-                Clerical (for example: secretary, clerk, office manager, civil 
-                servant, bookkeeper)
-                ''', 
+                'Clerical (for example: secretary, clerk, office manager, civil servant, bookkeeper)', 
                 'clerical'
             ),
             (
@@ -538,31 +524,19 @@ def occupation(require=False):
                 'sales'
             ),
             (
-                '''
-                Service (for example: restaurant owner, police officer, 
-                waitress, barber, caretaker)
-                ''', 
+                'Service (for example: restaurant owner, police officer, waitress, barber, caretaker)', 
                 'service'
             ),
             (
-                '''
-                Skilled worker (for example: foreman, motor mechanic, printer,
-                seamstress, tool and die maker, electrician)
-                ''', 
+                'Skilled worker (for example: foreman, motor mechanic, printer, seamstress, tool and die maker, electrician)', 
                 'skilled'
             ),
             (
-                '''
-                Semi-skilled worker (for example: bricklayer, bus driver, 
-                cannery worker, carpenter, sheet metal worker, baker)
-                ''', 
+                'Semi-skilled worker (for example: bricklayer, bus driver, cannery worker, carpenter, sheet metal worker, baker)', 
                 'semi-skilled'
             ),
             (
-                '''
-                Unskilled worker (for example: laborer, porter, unskilled 
-                factory worker, cleaner)
-                ''', 
+                'Unskilled worker (for example: laborer, porter, unskilled factory worker, cleaner)', 
                 'unskilled'
             ),
             ('Farm worker', 'farm worker'),
@@ -578,11 +552,9 @@ def occupation(require=False):
 def sector(require=False):
     sector_q = Select(
         '''
-        <p> Are you working for the government or public institution, for 
-        private business or industry, or for a private nonprofit organization? 
-        </p>
-        <p>If you are not employed, select the option for your most recent 
-        job.</p>
+        Are you working for the government or public institution, for private business or industry, or for a private nonprofit organization? 
+        
+        If you are not employed, select the option for your most recent job.
         ''',
         [
             '',
@@ -598,8 +570,8 @@ def sector(require=False):
 
 @register()
 def primary_wage_earner(require=False):
-    wage_q = Binary(
-        '<p>Are you the primary wage earner in your household?</p>',
+    wage_q = binary(
+        'Are you the primary wage earner in your household?',
         var='PrimaryWageEarner',
         validate=V.require() if require else None
     )
@@ -608,7 +580,7 @@ def primary_wage_earner(require=False):
 @register()
 def save_money(require=False):
     save_q = Select(
-        '<p>In the last year, did your family:</p>',
+        'In the last year, did your family:',
         [
             '',
             ('Save money', 'save'),
@@ -624,9 +596,7 @@ def save_money(require=False):
 @register()
 def social_class(require=False):
     social_q = Select(
-        '''
-        <p>Which social class would you describe yourself as belonging to?</p>
-        ''',
+        'Which social class would you describe yourself as belonging to?',
         [
             '',
             ('Upper class', 'upper'),
@@ -642,12 +612,12 @@ def social_class(require=False):
 
 @register()
 def income_group(require=False):
-    return Range(
+    return RangeInput(
         '''
-        <p>On a scale from 0 (lowest) to 10 (highest), which income group does 
-        your household belong to?</p>
-        <p>Please consider all wages, salaries, pensions, investments, and 
-        other income.</p>
+        On a scale from 0 (lowest) to 10 (highest), which income group does your household belong to?
+
+        Please consider all wages, salaries, pensions, investments, and other income.
         ''',
-        min=0, max=10, var='IncomeGroup', prepend='Income group: '
+        var='IncomeGroup', min=0, max=10,
+        validate=V.require() if require else None
     )

@@ -15,7 +15,8 @@
   <link rel="stylesheet" href="css/theme.css" />
   <link rel="stylesheet" href="css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  <link href="css/extra.css" rel="stylesheet" />
+  <link href="https://dsbowen.github.io/assets/css/code-highlighting.css" rel="stylesheet" />
+  <link href="https://dsbowen.github.io/assets/css//tabs.css" rel="stylesheet" />
   
   <script>
     // Current page data
@@ -54,6 +55,8 @@
     <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#quickstart">Quickstart</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-your-app">Running your app</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#citation">Citation</a>
     </li>
@@ -108,29 +111,72 @@
                 <h1 id="hemlock-demographics">Hemlock demographics</h1>
 <p>Hemlock-demographics is a <a href="https://dsbowen.github.io/hemlock/" target="_blank">hemlock</a> extension for collecting demographic information.</p>
 <h2 id="installation">Installation</h2>
-<p>With hemlock-CLI (recommended):</p>
-<pre><code>$ hlk install hemlock-demographics
-</code></pre>
-<p>With pip:</p>
-<pre><code>$ pip install hemlock-demographics
-</code></pre>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Hemlock-CLI</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>$ hlk install hemlock-demographics
+</code></pre></div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">pip</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>$ pip install hemlock-demographics
+</code></pre></div>
+</div>
+</div>
 <h2 id="quickstart">Quickstart</h2>
-<pre><code class="language-python">from hemlock import Branch, Page, Label, route
-from hemlock_demographics import comprehensive_demographics
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Using hemlock template</label><div class="tabbed-content">
+<p>In <code>survey.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">hemlock</span> <span class="kn">import</span> <span class="n">Branch</span><span class="p">,</span> <span class="n">Page</span><span class="p">,</span> <span class="n">Label</span><span class="p">,</span> <span class="n">route</span>
+<span class="kn">from</span> <span class="nn">hemlock_demographics</span> <span class="kn">import</span> <span class="n">comprehensive_demographics</span>
 
-@route('/survey')
-def start():
-    return Branch(
-        comprehensive_demographics(page=True),
-        Page(
-            Label('&lt;p&gt;The end.&lt;/p&gt;'), 
-            terminal=True
-        )
-    )
-</code></pre>
+<span class="nd">@route</span><span class="p">(</span><span class="s1">&#39;/survey&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">start</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">Branch</span><span class="p">(</span>
+        <span class="n">comprehensive_demographics</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">Page</span><span class="p">(</span>
+            <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;The end.&#39;</span><span class="p">),</span> 
+            <span class="n">terminal</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">From scratch</label><div class="tabbed-content">
+<p>Create a file <code>app.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">eventlet</span>
+<span class="n">eventlet</span><span class="o">.</span><span class="n">monkey_patch</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">hemlock</span> <span class="kn">import</span> <span class="n">Branch</span><span class="p">,</span> <span class="n">Page</span><span class="p">,</span> <span class="n">Label</span><span class="p">,</span> <span class="n">create_app</span><span class="p">,</span> <span class="n">route</span>
+<span class="kn">from</span> <span class="nn">hemlock_demographics</span> <span class="kn">import</span> <span class="n">comprehensive_demographics</span>
+
+<span class="nd">@route</span><span class="p">(</span><span class="s1">&#39;/survey&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">start</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">Branch</span><span class="p">(</span>
+        <span class="n">comprehensive_demographics</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">Page</span><span class="p">(</span>
+            <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;The end.&#39;</span><span class="p">),</span> 
+            <span class="n">terminal</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">create_app</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">hemlock.app</span> <span class="kn">import</span> <span class="n">socketio</span>
+    <span class="n">socketio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<h2 id="running-your-app">Running your app</h2>
+<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Hemlock-CLI</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>$ hlk serve
+</code></pre></div>
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">python3</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>$ python3 app.py
+</code></pre></div>
+</div>
+</div>
+<p>Go to <a href="http://localhost:5000/">http://localhost:5000/</a> in your browser.</p>
 <h2 id="citation">Citation</h2>
 <p>Hemlock-demographics is based largely on the demographics section of the <a href="http://www.worldvaluessurvey.org/">World Values Survey</a>.</p>
-<pre><code>@software{bowen2020hemlock-demographics,
+<div class="highlight"><pre><span></span><code>@software{bowen2020hemlock-demographics,
   author = {Dillon Bowen},
   title = {Hemlock-Demographics},
   url = {https://dsbowen.github.io/hemlock-demographics/},
@@ -143,10 +189,10 @@ def start():
     url = {http://www.worldvaluessurvey.org/},
     date = {2014.}
 }
-</code></pre>
+</code></pre></div>
 <h2 id="license">License</h2>
 <p>Users must cite this package in any publications which use it.</p>
-<p>It is licensed with the MIT <a href="https://github.com/dsbowen/docstr-md/blob/master/LICENSE">License</a>.</p>
+<p>It is licensed with the MIT <a href="https://github.com/dsbowen/hemlock-demographics/blob/master/LICENSE">License</a>.</p>
               
             </div>
           </div>
@@ -202,5 +248,5 @@ def start():
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-02-15 20:46:57.197220+00:00
+Build Date UTC : 2021-03-11 11:57:53.136787+00:00
 -->

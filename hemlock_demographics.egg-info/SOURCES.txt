@@ -1,4 +1,6 @@
 README.md
+pyproject.toml
+setup.cfg
 setup.py
 hemlock_demographics/__init__.py
 hemlock_demographics/languages.py

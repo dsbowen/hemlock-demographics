@@ -1,12 +1,14 @@
 Metadata-Version: 2.1
 Name: hemlock-demographics
-Version: 0.0.4
-Summary: Hemlock extension for adding demographics to a hemlock project.
+Version: 0.0.8
+Summary: Hemlock extension for demographic information
 Home-page: https://dsbowen.github.io/hemlock-demographics
 Author: Dillon Bowen
 Author-email: dsbowen@wharton.upenn.edu
 License: UNKNOWN
-Description: Hemlock-Demographics is a <a href="https://dsbowen.github.io/hemlock/" target="_blank">hemlock</a> extension which allows you to add demographics items to a hemlock project.
+Description: # Hemlock demographics
+        
+        Hemlock-demographics is a <a href="https://dsbowen.github.io/hemlock/" target="_blank">hemlock</a> extension for collecting demographic information.
         
         ## Installation
         
@@ -41,7 +43,7 @@ Description: Hemlock-Demographics is a <a href="https://dsbowen.github.io/hemloc
         
         ## Citation
         
-        Hemlock-Demographics is based largely on the demographics section of the [World Values Survey](http://www.worldvaluessurvey.org/).
+        Hemlock-demographics is based largely on the demographics section of the [World Values Survey](http://www.worldvaluessurvey.org/).
         
         ```
         @software{bowen2020hemlock-demographics,

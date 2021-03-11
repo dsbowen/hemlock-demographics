@@ -15,7 +15,8 @@
   <link rel="stylesheet" href="../css/theme.css" />
   <link rel="stylesheet" href="../css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  <link href="../css/extra.css" rel="stylesheet" />
+  <link href="https://dsbowen.github.io/assets/css/code-highlighting.css" rel="stylesheet" />
+  <link href="https://dsbowen.github.io/assets/css//tabs.css" rel="stylesheet" />
   
   <script>
     // Current page data
@@ -188,13 +189,13 @@
 </table>
 
 <h4 id="examples">Examples</h4>
-<pre><code class="language-python">from hemlock import push_app_context
-from hemlock_demographics import demographics
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">hemlock</span> <span class="kn">import</span> <span class="n">push_app_context</span>
+<span class="kn">from</span> <span class="nn">hemlock_demographics</span> <span class="kn">import</span> <span class="n">demographics</span>
 
-app = push_app_context()
+<span class="n">app</span> <span class="o">=</span> <span class="n">push_app_context</span><span class="p">()</span>
 
-demographics('age', 'gender', 'race', page=True).preview()
-</code></pre>
+<span class="n">demographics</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">preview</span><span class="p">()</span>
+</code></pre></div>
 <h2 id="hemlock_demographicscomprehensive_demographics">hemlock_demographics.<strong>comprehensive_demographics</strong></h2>
 <p class="func-header">
     <i>def</i> hemlock_demographics.<b>comprehensive_demographics</b>(<i>**kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/hemlock-demographics/blob/master/hemlock_demographics/__init__.py#L82">[source]</a>
@@ -346,14 +347,14 @@ demographics('age', 'gender', 'race', page=True).preview()
 </table>
 
 <h4 id="examples_1">Examples</h4>
-<pre><code class="language-python">@register()
-def gender(require=False):
-    gender = Check(
-        '&lt;p&gt;What is your gender?&lt;/p&gt;',
-        ['Male', 'Female', 'Other'],
-        var='Gender'
-    )
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nd">@register</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">gender</span><span class="p">(</span><span class="n">require</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">gender</span> <span class="o">=</span> <span class="n">Check</span><span class="p">(</span>
+        <span class="s1">&#39;&lt;p&gt;What is your gender?&lt;/p&gt;&#39;</span><span class="p">,</span>
+        <span class="p">[</span><span class="s1">&#39;Male&#39;</span><span class="p">,</span> <span class="s1">&#39;Female&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">],</span>
+        <span class="n">var</span><span class="o">=</span><span class="s1">&#39;Gender&#39;</span>
+    <span class="p">)</span>
+</code></pre></div>
               
             </div>
           </div>

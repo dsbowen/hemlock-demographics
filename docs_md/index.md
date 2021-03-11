@@ -4,34 +4,76 @@ Hemlock-demographics is a <a href="https://dsbowen.github.io/hemlock/" target="_
 
 ## Installation
 
-With hemlock-CLI (recommended):
+=== "Hemlock-CLI"
+    ```
+    $ hlk install hemlock-demographics
+    ```
 
-```
-$ hlk install hemlock-demographics
-```
-
-With pip:
-
-```
-$ pip install hemlock-demographics
-```
+=== "pip"
+    ```
+    $ pip install hemlock-demographics
+    ```
 
 ## Quickstart
 
-```python
-from hemlock import Branch, Page, Label, route
-from hemlock_demographics import comprehensive_demographics
+=== "Using hemlock template"
+    In `survey.py`:
 
-@route('/survey')
-def start():
-    return Branch(
-        comprehensive_demographics(page=True),
-        Page(
-            Label('<p>The end.</p>'), 
-            terminal=True
+    ```python
+    from hemlock import Branch, Page, Label, route
+    from hemlock_demographics import comprehensive_demographics
+
+    @route('/survey')
+    def start():
+        return Branch(
+            comprehensive_demographics(page=True),
+            Page(
+                Label('The end.'), 
+                terminal=True
+            )
         )
-    )
-```
+    ```
+
+=== "From scratch"
+    Create a file `app.py`:
+
+    ```python
+    import eventlet
+    eventlet.monkey_patch()
+
+    from hemlock import Branch, Page, Label, create_app, route
+    from hemlock_demographics import comprehensive_demographics
+
+    @route('/survey')
+    def start():
+        return Branch(
+            comprehensive_demographics(page=True),
+            Page(
+                Label('The end.'), 
+                terminal=True
+            )
+        )
+
+    app = create_app()
+
+    if __name__ == '__main__':
+        from hemlock.app import socketio
+        socketio.run(app, debug=True)
+    ```
+
+## Running your app
+
+=== "Hemlock-CLI"
+    ```bash
+    $ hlk serve
+    ```
+
+=== "python3"
+    ```bash
+    $ python3 app.py
+    ```
+
+Go to <http://localhost:5000/> in your browser.
 
 ## Citation
 
@@ -57,4 +99,4 @@ Hemlock-demographics is based largely on the demographics section of the [World 
 
 Users must cite this package in any publications which use it.
 
-It is licensed with the MIT [License](https://github.com/dsbowen/docstr-md/blob/master/LICENSE).
+It is licensed with the MIT [License](https://github.com/dsbowen/hemlock-demographics/blob/master/LICENSE).
